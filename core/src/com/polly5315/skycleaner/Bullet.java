@@ -5,27 +5,33 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Ship implements IShip {
-    private boolean _isDestroyed = false;
-    private IWeapon _weapon;
-    private float _desiredPosition;
-    private float _x, _y;
-    private float _forwardSpeed, _sideSpeed;
+public class Bullet implements IEntity, IPlaceable, IInitable<Bullet.InitParams> {
+    public static class InitParams {
+        public float x;
+        public float y;
+    }
+
+    private boolean _isDestroyed = true;
     private Set<IDestructibleListener> _destructibleListeners = new HashSet<IDestructibleListener>();
+    private float _x, _y;
+    private float _speed = 300;
 
     @Override
-    public void setWeapon(IWeapon weapon) {
-        _weapon = weapon;
+    public void init(InitParams initParams) {
+        if (initParams == null)
+            throw new IllegalArgumentException("initParams cannot be null");
+        _isDestroyed = false;
+        _x = initParams.x;
+        _y = initParams.y;
     }
 
     @Override
-    public void setForwardSpeed(float forwardSpeed) {
-        _forwardSpeed = forwardSpeed;
-    }
-
-    @Override
-    public void setSideSpeed(float sideSpeed) {
-        _sideSpeed = sideSpeed;
+    public void update(float time) {
+        if (_isDestroyed)
+            return;
+        _y += _speed * time;
+        if (_y > 400)
+            destroy();
     }
 
     @Override
@@ -58,29 +64,6 @@ public class Ship implements IShip {
     public void setPosition(Vector2 position) {
         _x = position.x;
         _y = position.y;
-    }
-
-    @Override
-    public void fire() {
-        if (_weapon != null)
-            _weapon.fire();
-    }
-
-    @Override
-    public void setDesiredPosition(float desiredPosition) {
-        _desiredPosition = desiredPosition;
-    }
-
-    @Override
-    public void update(float time) {
-        _y += _forwardSpeed * time;
-        if (_desiredPosition != _x) {
-            final float path = _desiredPosition - _x;
-            final float step = Math.signum(path) * _sideSpeed * time;
-            _x += path * path > step * step ? step : path;
-        }
-        if (_weapon != null)
-            _weapon.update(time);
     }
 
     @Override
