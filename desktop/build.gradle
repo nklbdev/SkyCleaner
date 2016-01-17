@@ -1,6 +1,7 @@
 apply plugin: "java"
 
 sourceCompatibility = 1.6
+archivesBaseName = project.appName
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 project.ext.mainClassName = "com.polly5315.skycleaner.desktop.DesktopLauncher"
