@@ -7,9 +7,7 @@ public class Bullet extends EntityBase implements IBullet {
     private final float _maxLifeTime = 3;
     private final float _speed = 10;
     private float _lifeTime = 0;
-    private final IEntityManager<IBlast> _blastManager;
     private final Body _body;
-    private boolean _isDestroyAllowed = false;
 
     private static final BodyDef _bodyDef;
     private static final FixtureDef _fixtureDef;
@@ -30,9 +28,7 @@ public class Bullet extends EntityBase implements IBullet {
         }};
     }
 
-    public Bullet(float x, float y, IEntityManager<IBlast> blastManager, World world) {
-        if (blastManager == null)
-            throw new IllegalArgumentException("blastManager cannot be null");
+    public Bullet(float x, float y, World world) {
         if (world == null)
             throw new IllegalArgumentException("world cannot be null");
         _body = world.createBody(_bodyDef);
@@ -40,7 +36,6 @@ public class Bullet extends EntityBase implements IBullet {
         _body.createFixture(_fixtureDef);
         _body.setTransform(x/20, y/20, 0);
         _body.setLinearVelocity(0, _speed);
-        _blastManager = blastManager;
     }
 
     @Override
@@ -66,7 +61,6 @@ public class Bullet extends EntityBase implements IBullet {
 
     @Override
     public void onDestroy() {
-        _blastManager.addEntity(new Blast(getX(), getY()));
         _body.getWorld().destroyBody(_body);
     }
 }

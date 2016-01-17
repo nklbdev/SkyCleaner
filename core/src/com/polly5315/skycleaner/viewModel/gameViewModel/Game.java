@@ -37,7 +37,7 @@ public class Game implements IGame {
             @Override
             public void postSolve(Contact contact, ContactImpulse impulse) { }
         });
-        _ship = new Ship(_bulletManager, new BulletFactory(_blastManager, _world));
+        _ship = new Ship(_bulletManager, new BulletFactory(_world));
         _enemyManager.addEntity(new Enemy(100, 500, _world, _blastManager));
         _enemyManager.addEntity(new Enemy(500, 600, _world, _blastManager));
         _enemyManager.addEntity(new Enemy(300, 700, _world, _blastManager));

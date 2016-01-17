@@ -12,6 +12,9 @@ import com.polly5315.skycleaner.viewModel.gameViewModel.*;
 import com.polly5315.skycleaner.viewModel.gameViewModel.entities.IBlastViewModel;
 import com.polly5315.skycleaner.viewModel.gameViewModel.entities.IBulletViewModel;
 import com.polly5315.skycleaner.views.actors.*;
+import com.polly5315.skycleaner.views.factories.BlastViewFactory;
+import com.polly5315.skycleaner.views.factories.BulletViewFactory;
+import com.polly5315.skycleaner.views.factories.EnemyViewFactory;
 
 public class GameView extends ScreenAdapter {
     private final IGameViewModel _viewModel;
@@ -26,7 +29,7 @@ public class GameView extends ScreenAdapter {
         _viewModel = viewModel;
         //_stage = new Stage(new ExtendViewport(_minWorldWidth, _minWorldHeight, _maxWorldWith, _maxWorldHeight));
         _stage = new Stage();
-        TextureAtlas atlas = new TextureAtlas("atlas.atlas");
+        TextureAtlas atlas = new TextureAtlas("explosion.atlas");
         _stage.addActor(new DestructibleViewManager<IBulletViewModel>(_viewModel.getBulletManagerViewModel(), new BulletViewFactory(new Texture("bullet.png"))));
         _stage.addActor(new DestructibleViewManager<IEnemyViewModel>(_viewModel.getEnemyManagerViewModel(), new EnemyViewFactory()));
         _stage.addActor(new ShipView(_viewModel.getShip()));

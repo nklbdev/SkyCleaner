@@ -3,11 +3,12 @@ package com.polly5315.skycleaner.views.actors;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.polly5315.skycleaner.viewModel.gameViewModel.IDestructibleManagerViewModel;
 import com.polly5315.skycleaner.viewModel.gameViewModel.IDestructibleViewModel;
+import com.polly5315.skycleaner.views.factories.IActorFactory;
 
 public class DestructibleViewManager<TItem extends IDestructibleViewModel> extends Group implements IDestructibleManagerViewModel.IDestructibleManagerViewModelListener<TItem> {
-    private final IViewFactory<TItem> _viewFactory;
+    private final IActorFactory<TItem> _viewFactory;
 
-    public DestructibleViewManager(IDestructibleManagerViewModel<? extends TItem> viewModelManager, IViewFactory<TItem> viewFactory) {
+    public DestructibleViewManager(IDestructibleManagerViewModel<? extends TItem> viewModelManager, IActorFactory<TItem> viewFactory) {
         if (viewModelManager == null)
             throw new IllegalArgumentException("viewModelManager cannot be null");
         if (viewFactory == null)

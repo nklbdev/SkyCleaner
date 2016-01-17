@@ -47,7 +47,7 @@ public class Enemy extends EntityBase implements IEnemy {
 
     @Override
     public void onDestroy() {
-        _blastManager.addEntity(new Blast(getX(), getY()));
+        _blastManager.addEntity(new Blast(getX(), getY(), 0, -_speed*20));
         _body.getWorld().destroyBody(_body);
     }
 

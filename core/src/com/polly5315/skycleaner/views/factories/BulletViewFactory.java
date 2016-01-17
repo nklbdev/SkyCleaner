@@ -1,10 +1,11 @@
-package com.polly5315.skycleaner.views.actors;
+package com.polly5315.skycleaner.views.factories;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.polly5315.skycleaner.viewModel.gameViewModel.entities.IBulletViewModel;
+import com.polly5315.skycleaner.views.actors.BulletView;
 
-public class BulletViewFactory implements IViewFactory<IBulletViewModel> {
+public class BulletViewFactory implements IActorFactory<IBulletViewModel> {
     private final Texture _texture;
 
     public BulletViewFactory(Texture texture) {
