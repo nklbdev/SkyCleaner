@@ -11,7 +11,6 @@ public class Enemy extends EntityBase implements IEnemy {
     private static final BodyDef _bodyDef;
     private static final FixtureDef _fixtureDef;
     private static final Shape _shape;
-    private boolean _isDestroyAllowed = false;
 
     static {
         _bodyDef = new BodyDef() {{
@@ -44,6 +43,12 @@ public class Enemy extends EntityBase implements IEnemy {
     @Override
     public void onUpdate(float time) {
         //
+    }
+
+    @Override
+    public void onDestroy() {
+        _blastManager.addEntity(new Blast(getX(), getY()));
+        _body.getWorld().destroyBody(_body);
     }
 
     @Override
